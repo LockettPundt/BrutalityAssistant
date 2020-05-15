@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import {
-  Form, FormField, Button, TextInput, Select,
+  Form, FormField, Button, TextInput, Select, Calendar, Box,
 } from 'grommet';
 import axios from 'axios';
 import API_URL from '../utils/appUtils';
@@ -10,7 +10,7 @@ const NewJob = () => {
   const [company, setCompany] = useState('');
   const [position, setPosition] = useState('');
   const [applicationDate, setApplicationDate] = useState('');
-  const [skillNeeded, setSkillsNeeded] = useState([]);
+  const [skillsNeeded, setSkillsNeeded] = useState('');
   const [interview, setInterview] = useState('Interviewed?');
 
 
@@ -18,8 +18,8 @@ const NewJob = () => {
     const jobInfo = {
       company,
       position,
-      applicationDate,
-      skillNeeded,
+      applicationDate: !applicationDate ? new Date() : applicationDate,
+      skillsNeeded: skillsNeeded.split(','),
       interview: interview === 'True',
     };
     const url = `${API_URL}jobs`;
@@ -33,51 +33,63 @@ const NewJob = () => {
 
 
   return (
-    <Form onSubmit={postJob}>
-      <FormField>
-        <TextInput
-          value={company}
-          placeholder="Company Name"
-          required
-          onChange={(e) => setCompany(e.target.value)}
+    <Box
+      direction="column"
+      margin={{
+        horizontal: 'auto',
+        top: 'xlarge',
+      }}
+      responsive
+      width="medium"
+    >
+      <Form onSubmit={postJob}>
+        <FormField>
+          <TextInput
+            value={company}
+            placeholder="Company Name"
+            required
+            onChange={(e) => setCompany(e.target.value)}
+          />
+        </FormField>
+        <FormField>
+          <TextInput
+            value={position}
+            placeholder="Position Applied"
+            required
+            onChange={(e) => setPosition(e.target.value)}
+          />
+        </FormField>
+        <FormField>
+          <Calendar
+            size="small"
+          // alignSelf="center"
+            margin="small"
+            required
+            onSelect={(e) => setApplicationDate(e)}
+          />
+        </FormField>
+        <FormField>
+          <TextInput
+            value={skillsNeeded}
+            placeholder="Skills Needed"
+            required
+            onChange={(e) => setSkillsNeeded(e.target.value)}
+          />
+        </FormField>
+        <FormField>
+          <Select
+            placeholder="Interviewed?"
+            options={['True', 'False']}
+            value={interview}
+            onChange={({ option }) => setInterview(option)}
+          />
+        </FormField>
+        <Button
+          type="submit"
+          label="Post Job"
         />
-      </FormField>
-      <FormField>
-        <TextInput
-          value={position}
-          placeholder="Position Applied"
-          required
-          onChange={(e) => setPosition(e.target.value)}
-        />
-      </FormField>
-      <FormField>
-        <TextInput
-          value={applicationDate}
-          placeholder="MM/DD/YY or 'Today'"
-          required
-          onChange={(e) => setApplicationDate(e.target.value)}
-        />
-      </FormField>
-      <FormField>
-        <TextInput
-          value={skillNeeded}
-          placeholder="Skills Needed"
-          required
-          onChange={(e) => setSkillsNeeded(e.target.value)}
-        />
-      </FormField>
-      <Select
-        label="Interviewed"
-        options={['True', 'False']}
-        value={interview}
-        required
-        onChange={({ option }) => setInterview(option)}
-      />
-      <Button
-        type="submit"
-        label="Post Job"
-      />
-    </Form>
+      </Form>
+    </Box>
   );
 };
 
