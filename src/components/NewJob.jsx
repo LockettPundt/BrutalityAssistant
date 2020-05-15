@@ -10,7 +10,7 @@ const NewJob = () => {
   const [company, setCompany] = useState('');
   const [position, setPosition] = useState('');
   const [applicationDate, setApplicationDate] = useState('');
-  const [skillsNeeded, setSkillsNeeded] = useState([]);
+  const [skillsNeeded, setSkillsNeeded] = useState('');
   const [interview, setInterview] = useState('Interviewed?');
 
 
@@ -81,7 +81,6 @@ const NewJob = () => {
             placeholder="Interviewed?"
             options={['True', 'False']}
             value={interview}
-            required
             onChange={({ option }) => setInterview(option)}
           />
         </FormField>
