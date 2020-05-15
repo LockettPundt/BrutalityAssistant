@@ -14,7 +14,7 @@ function App() {
         <Route exact path="/">
           hi there this is the client side.
         </Route>
-        <Route path="/userregister" component={UserRegister} />
+        <Route path="/register" component={UserRegister} />
         <Route path="/newjob" component={NewJob} />
       </Switch>
     </Router>
