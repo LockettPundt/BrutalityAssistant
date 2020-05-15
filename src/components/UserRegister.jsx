@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import {
-  Form, FormField, TextInput, Button,
+  Form, FormField, TextInput, Button, Box,
 } from 'grommet';
 import axios from 'axios';
 import API_URL from '../utils/appUtils';
@@ -43,45 +43,55 @@ const UserRegister = () => {
   };
 
   return (
-    <Form onSubmit={postJob}>
-      <FormField>
-        <TextInput
-          value={firstName}
-          placeholder="First Name"
-          required
-          onChange={(e) => setFirstName(e.target.value)}
+    <Box
+      direction="column"
+      margin={{
+        horizontal: 'auto',
+        top: 'xlarge',
+      }}
+      responsive
+      width="medium"
+    >
+      <Form onSubmit={postJob}>
+        <FormField>
+          <TextInput
+            value={firstName}
+            placeholder="First Name"
+            required
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </FormField>
+        <FormField>
+          <TextInput
+            value={lastName}
+            placeholder="Last Name"
+            required
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </FormField>
+        <FormField>
+          <TextInput
+            value={email}
+            placeholder={emailPlaceholder}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </FormField>
+        <FormField>
+          <TextInput
+            type="password"
+            value={password} // i'll delete this later.
+            placeholder={passwordPlaceholder}
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </FormField>
+        <Button
+          type="submit"
+          label="Register"
         />
-      </FormField>
-      <FormField>
-        <TextInput
-          value={lastName}
-          placeholder="Last Name"
-          required
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </FormField>
-      <FormField>
-        <TextInput
-          value={email}
-          placeholder={emailPlaceholder}
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </FormField>
-      <FormField>
-        <TextInput
-          type="password"
-          value={password} // i'll delete this later.
-          placeholder={passwordPlaceholder}
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </FormField>
-      <Button
-        type="submit"
-        label="Register"
-      />
-    </Form>
+      </Form>
+    </Box>
   );
 };
 
