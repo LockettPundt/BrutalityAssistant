@@ -11,6 +11,8 @@ const UserRegister = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailPlaceholder, setEmailPlaceholder] = useState('Email');
+  const [passwordPlaceholder, setPasswordPlaceholder] = useState('Password');
 
   const postJob = async () => {
     const info = {
@@ -21,10 +23,23 @@ const UserRegister = () => {
     };
     const url = `${API_URL}users/register`;
     const newUserPost = await axios.post(url, info);
-    setPassword('');
-    setFirstName('');
-    setLastName('');
-    setEmail('');
+    // console.log(newUserPost.data);
+    if (newUserPost.data.includes('email')) {
+      setEmail('');
+      setEmailPlaceholder(newUserPost.data);
+    }
+    if (newUserPost.data.includes('Password')) {
+      setPassword('');
+      setPasswordPlaceholder(newUserPost.data);
+    }
+    if (newUserPost.data === 'OK') {
+      setPassword('');
+      setEmailPlaceholder('Email');
+      setPasswordPlaceholder('Password');
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+    }
   };
 
   return (
@@ -48,7 +63,7 @@ const UserRegister = () => {
       <FormField>
         <TextInput
           value={email}
-          placeholder="Email"
+          placeholder={emailPlaceholder}
           required
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -56,7 +71,8 @@ const UserRegister = () => {
       <FormField>
         <TextInput
           type="password"
-          placeholder="Password"
+          value={password} // i'll delete this later.
+          placeholder={passwordPlaceholder}
           required
           onChange={(e) => setPassword(e.target.value)}
         />
