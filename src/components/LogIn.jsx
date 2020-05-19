@@ -3,29 +3,50 @@ import {
   Form, FormField, Box, Button, TextInput,
 } from 'grommet';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import API_URL from '../utils/appUtils';
 
-const LogIn = () => {
+const LogIn = ({ setUserEmail, setUserToken }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailPlaceholder, setEmailPlaceholder] = useState('Email');
   const [passwordPlaceholder, setPasswordPlaceholder] = useState('Password');
+  const history = useHistory();
+
+
   const logUserIn = async () => {
     const userInfo = {
       email,
       password,
     };
-    // console.log('this is the user info', userInfo);
+
     const url = `${API_URL}users/login`;
-    const checkUser = await axios.put(url, userInfo);
-    // console.log(checkUser.data);
-    if (checkUser.data.includes('valid email')) {
-      setEmail('');
-      setEmailPlaceholder(checkUser.data);
+    const user = await axios.put(url, userInfo);
+
+    // console.log('this is the user.', user);
+
+    if (user.data.error) {
+      if (user.data.error.includes('email')) {
+        setEmail('');
+        setEmailPlaceholder(user.data.error);
+      }
+      if (user.data.error.includes('Password')) {
+        setPassword('');
+        setPasswordPlaceholder(user.data.error);
+      }
     }
-    if (checkUser.data.includes('Password')) {
+    if (user.data.token) {
+      // console.log('Log in Success.');
+      localStorage.clear();
+      localStorage.setItem('token', user.data.token);
+      localStorage.setItem('userEmail', user.data.email);
+      setUserEmail(user.data.email);
+      setUserToken(user.data.token);
+      setEmail('');
       setPassword('');
-      setPasswordPlaceholder(checkUser.data);
+      setPasswordPlaceholder('Password');
+      setEmailPlaceholder('Email');
+      history.push('/');
     }
   };
 
