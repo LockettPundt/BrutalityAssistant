@@ -18,7 +18,7 @@ const UserRegister = ({ setUserEmail, setUserToken }) => {
   const history = useHistory();
 
 
-  const postJob = async () => {
+  const postUser = async () => {
     const info = {
       firstName,
       lastName,
@@ -27,7 +27,6 @@ const UserRegister = ({ setUserEmail, setUserToken }) => {
     };
     const url = `${API_URL}users/register`;
     const newUserPost = await axios.post(url, info);
-    // console.log(newUserPost.data);
     if (newUserPost.data.error) {
       if (newUserPost.data.error.includes('email')) {
         setEmail('');
@@ -39,7 +38,6 @@ const UserRegister = ({ setUserEmail, setUserToken }) => {
       }
     }
     if (newUserPost.data.token) {
-      // console.log(newUserPost.data);
       localStorage.setItem('token', newUserPost.data.token);
       localStorage.setItem('userEmail', newUserPost.data.email);
       setUserEmail(newUserPost.data.email);
@@ -64,7 +62,7 @@ const UserRegister = ({ setUserEmail, setUserToken }) => {
       responsive
       width="medium"
     >
-      <Form onSubmit={postJob}>
+      <Form onSubmit={postUser}>
         <FormField>
           <TextInput
             value={firstName}

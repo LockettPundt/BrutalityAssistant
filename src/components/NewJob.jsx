@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form, FormField, Button, TextInput, Select, Calendar, Box,
 } from 'grommet';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../utils/appUtils';
 
@@ -12,15 +13,22 @@ const NewJob = () => {
   const [applicationDate, setApplicationDate] = useState('');
   const [skillsNeeded, setSkillsNeeded] = useState('');
   const [interview, setInterview] = useState('Interviewed?');
+  const [user, setUser] = useState(localStorage.getItem('userEmail') || null);
+  const history = useHistory();
 
+  useEffect(() => {
+    if (!user) history.push('/');
+  });
 
   const postJob = async () => {
+    console.log('this si the newjob. ', user);
     const jobInfo = {
       company,
       position,
       applicationDate: !applicationDate ? new Date() : applicationDate,
       skillsNeeded: skillsNeeded.split(','),
       interview: interview === 'True',
+      user,
     };
     const url = `${API_URL}jobs`;
     const jobToPost = axios.post(url, jobInfo);
