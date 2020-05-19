@@ -14,8 +14,8 @@ function App() {
   const [userEmail, setUserEmail] = useState(localStorage.getItem('userEmail') || null);
   const [userToken, setUserToken] = useState(localStorage.getItem('token') || null);
   useEffect(() => {
-    console.log(localStorage.getItem('userEmail'));
-    console.log(localStorage.getItem('token'));
+    console.log('this is the email', localStorage.getItem('userEmail'));
+    console.log('this is the token', localStorage.getItem('token'));
     const verifyUser = async () => {
       const tokenToVerify = await axios.post(`${API_URL}userauth`, { userEmail, userToken });
       console.log(tokenToVerify);
