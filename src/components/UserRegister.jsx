@@ -4,15 +4,19 @@ import {
   Form, FormField, TextInput, Button, Box,
 } from 'grommet';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import API_URL from '../utils/appUtils';
 
-const UserRegister = () => {
+
+const UserRegister = ({ setUserEmail, setUserToken }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailPlaceholder, setEmailPlaceholder] = useState('Email');
   const [passwordPlaceholder, setPasswordPlaceholder] = useState('Password');
+  const history = useHistory();
+
 
   const postJob = async () => {
     const info = {
@@ -24,21 +28,29 @@ const UserRegister = () => {
     const url = `${API_URL}users/register`;
     const newUserPost = await axios.post(url, info);
     // console.log(newUserPost.data);
-    if (newUserPost.data.includes('email')) {
-      setEmail('');
-      setEmailPlaceholder(newUserPost.data);
+    if (newUserPost.data.error) {
+      if (newUserPost.data.error.includes('email')) {
+        setEmail('');
+        setEmailPlaceholder(newUserPost.data.error);
+      }
+      if (newUserPost.data.error.includes('Password')) {
+        setPassword('');
+        setPasswordPlaceholder(newUserPost.data.error);
+      }
     }
-    if (newUserPost.data.includes('Password')) {
-      setPassword('');
-      setPasswordPlaceholder(newUserPost.data);
-    }
-    if (newUserPost.data === 'OK') {
+    if (newUserPost.data.token) {
+      // console.log(newUserPost.data);
+      localStorage.setItem('token', newUserPost.data.token);
+      localStorage.setItem('userEmail', newUserPost.data.email);
+      setUserEmail(newUserPost.data.email);
+      setUserToken(newUserPost.data.token);
       setPassword('');
       setEmailPlaceholder('Email');
       setPasswordPlaceholder('Password');
       setFirstName('');
       setLastName('');
       setEmail('');
+      history.push('/');
     }
   };
 
