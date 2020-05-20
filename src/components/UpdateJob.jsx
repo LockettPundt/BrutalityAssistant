@@ -1,45 +1,49 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import {
-  Form, FormField, Button, TextInput, Select, Calendar, Box,
+  Form, FormField, Box, Button, TextInput, Select,
 } from 'grommet';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../utils/appUtils';
 
-const NewJob = () => {
+const UpdateJob = () => {
+  const { id } = useParams();
   const [company, setCompany] = useState('');
   const [position, setPosition] = useState('');
-  const [applicationDate, setApplicationDate] = useState('');
   const [skillsNeeded, setSkillsNeeded] = useState('');
   const [interview, setInterview] = useState('Interviewed?');
-  const [user, setUser] = useState(localStorage.getItem('userEmail') || null);
+  const [userEmail, setUserEmail] = useState(localStorage.getItem('userEmail') || null);
   const history = useHistory();
 
-  useEffect(() => {
-    if (!user) history.push('/');
-  });
-
-  const postJob = async () => {
-    // console.log('this si the newjob. ', user);
-    const jobInfo = {
+  const updateJob = async () => {
+    const response = await axios.put(`${API_URL}jobs/${id}`, {
       company,
       position,
-      applicationDate: !applicationDate ? new Date() : applicationDate,
-      skillsNeeded: skillsNeeded.split(','),
+      skillsNeeded,
       interview: interview === 'True',
-      user,
-    };
-    const url = `${API_URL}jobs`;
-    const jobToPost = axios.post(url, jobInfo);
-    setInterview('');
-    setPosition('');
-    setSkillsNeeded('');
-    setCompany('');
-    setApplicationDate('');
+    });
     history.push('/myjobs');
   };
 
+  const removeJob = async () => {
+    const response = await axios.delete(`${API_URL}jobs/${id}`);
+    history.push('/myjobs');
+  };
+
+
+  useEffect(() => {
+    const jobInfo = async (jobId) => {
+      const response = await axios.get(`${API_URL}jobs/${jobId}`);
+      // console.log(response);
+      setCompany(response.data[0].company);
+      setInterview(response.data[0].interview ? 'True' : 'False');
+      setSkillsNeeded(response.data[0].skillsNeeded.join(', '));
+      setPosition(response.data[0].position);
+    };
+
+    jobInfo(id);
+  }, []);
 
   return (
     <Box
@@ -49,14 +53,12 @@ const NewJob = () => {
         top: 'xlarge',
       }}
       responsive
-      align="center"
       width="medium"
     >
-      <Form onSubmit={postJob}>
+      <Form onSubmit={updateJob}>
         <FormField>
           <TextInput
             value={company}
-            placeholder="Company Name"
             required
             onChange={(e) => setCompany(e.target.value)}
           />
@@ -64,51 +66,39 @@ const NewJob = () => {
         <FormField>
           <TextInput
             value={position}
-            placeholder="Position Applied"
             required
             onChange={(e) => setPosition(e.target.value)}
           />
         </FormField>
-        <FormField>
-          <Calendar
-            size="small"
-          // alignSelf="center"
-            margin="small"
-            required
-            onSelect={(e) => setApplicationDate(e)}
-          />
-        </FormField>
+
         <FormField>
           <TextInput
             value={skillsNeeded}
-            placeholder="Skills Needed"
             required
             onChange={(e) => setSkillsNeeded(e.target.value)}
           />
         </FormField>
         <FormField>
           <Select
-            placeholder="Interviewed?"
+            placeholder={interview}
             options={['True', 'False']}
-            value={interview}
             onChange={({ option }) => setInterview(option)}
           />
         </FormField>
         <Box
           direction="row"
-          justify="center"
+
         >
           <Button
-            type="button"
-            label="Cancel"
-            href="/myjobs"
-            margin="small"
+            type="submit"
+            label="Update"
           />
           <Button
-            type="submit"
-            label="Post Job"
-            margin="small"
+            type="button"
+            label="Remove"
+            onClick={removeJob}
           />
+
         </Box>
 
       </Form>
@@ -117,4 +107,4 @@ const NewJob = () => {
 };
 
 
-export default NewJob;
+export default UpdateJob;
