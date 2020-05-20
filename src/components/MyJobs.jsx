@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import {
@@ -6,7 +7,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../utils/appUtils';
-
+import userAuth from '../utils/userAuth';
 
 const MyJobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -14,9 +15,8 @@ const MyJobs = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const getJobs = async () => {
-      const response = await axios.post(`${API_URL}jobs/getjobs`, { user: userEmail });
-      // console.log('this is the response', response);
+    const getJobs = async (email) => {
+      const response = await axios.post(`${API_URL}jobs/getjobs`, { user: email });
       setJobs([...response.data.map((job) => (
         {
           company: job.company,
@@ -26,13 +26,16 @@ const MyJobs = () => {
           interview: job.interview ? 'Yes' : 'No',
           update: `/updatejob/${job._id}`,
         }
-
       ))]);
     };
-
-    if (userEmail) getJobs();
-    else history.push('/');
-  }, []);
+    const auth = async () => {
+      const response = await userAuth();
+      console.log('response in my jobs', response);
+      if (response) getJobs(response.data.authorizedData.UserInfo.email);
+      else history.push('/');
+    };
+    auth();
+  }, [history]);
 
 
   return (
