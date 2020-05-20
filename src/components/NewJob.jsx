@@ -21,7 +21,7 @@ const NewJob = () => {
   });
 
   const postJob = async () => {
-    console.log('this si the newjob. ', user);
+    // console.log('this si the newjob. ', user);
     const jobInfo = {
       company,
       position,
@@ -37,6 +37,7 @@ const NewJob = () => {
     setSkillsNeeded('');
     setCompany('');
     setApplicationDate('');
+    history.push('/myjobs');
   };
 
 
@@ -48,6 +49,7 @@ const NewJob = () => {
         top: 'xlarge',
       }}
       responsive
+      align="center"
       width="medium"
     >
       <Form onSubmit={postJob}>
@@ -92,10 +94,23 @@ const NewJob = () => {
             onChange={({ option }) => setInterview(option)}
           />
         </FormField>
-        <Button
-          type="submit"
-          label="Post Job"
-        />
+        <Box
+          direction="row"
+          justify="center"
+        >
+          <Button
+            type="button"
+            label="Cancel"
+            href="/myjobs"
+            margin="small"
+          />
+          <Button
+            type="submit"
+            label="Post Job"
+            margin="small"
+          />
+        </Box>
+
       </Form>
     </Box>
   );
