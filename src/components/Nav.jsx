@@ -16,8 +16,9 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    console.log('hi');
     setUserToken(!!localStorage.getItem('token'));
-  }, [!!localStorage.getItem('token'), userToken]);
+  });
 
   return (
     <Nav

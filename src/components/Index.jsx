@@ -6,29 +6,28 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import API_URL from '../utils/appUtils';
+import userAuth from '../utils/userAuth';
 
 const Index = ({ userEmail, userToken }) => {
   const [userName, setUserName] = useState(false);
   const [userAuthStatus, setUserAuthStatus] = useState(false);
   const history = useHistory();
+
   useEffect(() => {
     const getUser = async () => {
-      const response = await axios.post(`${API_URL}userauth`, {
-        email: userEmail,
-        userToken,
-      });
-      console.log('here is the response', response);
-      const { firstName, lastName } = response.data.authorizedData.UserInfo;
-      setUserName(`${firstName.slice(0, 1).toUpperCase()}${firstName.slice(1)}`);
-      if (response.status === 403) localStorage.clear();
-      return response.status === 200 ? setUserAuthStatus(true) : setUserAuthStatus(false);
+      const response = await userAuth();
+
+      if (response) {
+        const { firstName, lastName } = response.data.authorizedData.UserInfo;
+        setUserName(`${firstName.slice(0, 1).toUpperCase()}${firstName.slice(1)}`);
+        setUserAuthStatus(true);
+        history.push('/');
+        return true;
+      }
+      return false;
     };
-    if (userEmail && userToken) getUser();
-    if (!userEmail || !userToken) {
-      setUserName('');
-      setUserAuthStatus(false);
-    }
-  }, [userEmail, userToken]);
+    getUser();
+  }, [userEmail, userToken, history]);
 
   const handleLogOut = () => {
     setUserName('');

@@ -6,6 +6,8 @@ import {
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../utils/appUtils';
+import userAuth from '../utils/userAuth';
+
 
 const NewJob = () => {
   const [company, setCompany] = useState('');
@@ -17,27 +19,35 @@ const NewJob = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (!user) history.push('/');
-  });
+    const auth = async () => {
+      const authResponse = await userAuth();
+      if (!authResponse) history.push('/');
+    };
+    auth();
+  }, [history]);
 
   const postJob = async () => {
-    // console.log('this si the newjob. ', user);
-    const jobInfo = {
-      company,
-      position,
-      applicationDate: !applicationDate ? new Date() : applicationDate,
-      skillsNeeded: skillsNeeded.split(','),
-      interview: interview === 'True',
-      user,
-    };
-    const url = `${API_URL}jobs`;
-    const jobToPost = axios.post(url, jobInfo);
-    setInterview('');
-    setPosition('');
-    setSkillsNeeded('');
-    setCompany('');
-    setApplicationDate('');
-    history.push('/myjobs');
+    const authResponse = await userAuth();
+    if (authResponse) {
+      const jobInfo = {
+        company,
+        position,
+        applicationDate: !applicationDate ? new Date() : applicationDate,
+        skillsNeeded: skillsNeeded.split(','),
+        interview: interview === 'True',
+        user,
+      };
+      const url = `${API_URL}jobs`;
+      const jobToPost = axios.post(url, jobInfo);
+      setInterview('');
+      setPosition('');
+      setSkillsNeeded('');
+      setCompany('');
+      setApplicationDate('');
+      history.push('/myjobs');
+    } else {
+      history.push('/');
+    }
   };
 
 

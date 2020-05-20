@@ -6,6 +6,8 @@ import {
 } from 'grommet';
 import axios from 'axios';
 import API_URL from '../utils/appUtils';
+import userAuth from '../utils/userAuth';
+
 
 const UpdateJob = () => {
   const { id } = useParams();
@@ -17,33 +19,47 @@ const UpdateJob = () => {
   const history = useHistory();
 
   const updateJob = async () => {
-    const response = await axios.put(`${API_URL}jobs/${id}`, {
-      company,
-      position,
-      skillsNeeded,
-      interview: interview === 'True',
-    });
-    history.push('/myjobs');
+    const authResponse = await userAuth();
+
+    if (authResponse) {
+      const response = await axios.put(`${API_URL}jobs/${id}`, {
+        company,
+        position,
+        skillsNeeded,
+        interview: interview === 'True',
+      });
+      return history.push('/myjobs');
+    }
+    return history.push('/');
   };
 
   const removeJob = async () => {
-    const response = await axios.delete(`${API_URL}jobs/${id}`);
-    history.push('/myjobs');
+    const authResponse = await userAuth();
+    if (authResponse) {
+      const response = await axios.delete(`${API_URL}jobs/${id}`);
+      return history.push('/myjobs');
+    }
+    return history.push('/');
   };
 
 
   useEffect(() => {
     const jobInfo = async (jobId) => {
-      const response = await axios.get(`${API_URL}jobs/${jobId}`);
-      // console.log(response);
-      setCompany(response.data[0].company);
-      setInterview(response.data[0].interview ? 'True' : 'False');
-      setSkillsNeeded(response.data[0].skillsNeeded.join(', '));
-      setPosition(response.data[0].position);
+      const authResponse = await userAuth();
+      if (authResponse) {
+        const response = await axios.get(`${API_URL}jobs/${jobId}`);
+        // console.log(response);
+        setCompany(response.data[0].company);
+        setInterview(response.data[0].interview ? 'True' : 'False');
+        setSkillsNeeded(response.data[0].skillsNeeded.join(', '));
+        setPosition(response.data[0].position);
+      } else {
+        history.push('/');
+      }
     };
 
     jobInfo(id);
-  }, []);
+  }, [id]);
 
   return (
     <Box
