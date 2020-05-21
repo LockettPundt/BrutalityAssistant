@@ -58,6 +58,7 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
         top: 'xlarge',
       }}
       responsive
+      pad="medium"
       width="medium"
     >
       <h1>Log In</h1>
