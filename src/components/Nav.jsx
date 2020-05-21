@@ -29,11 +29,11 @@ const Navbar = () => {
         margin={{
           left: 'small',
         }}
+        color="pink"
       >
         Brutality Assistant
       </Text>
       <Anchor
-
         icon={<Home />}
         href="/"
       />
@@ -45,7 +45,6 @@ const Navbar = () => {
           />
         )
         : null}
-
     </Nav>
   );
 };

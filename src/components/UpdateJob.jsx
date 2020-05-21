@@ -59,16 +59,17 @@ const UpdateJob = () => {
     };
 
     jobInfo(id);
-  }, [id]);
+  }, [id, history]);
 
   return (
     <Box
       direction="column"
       margin={{
         horizontal: 'auto',
-        top: 'xlarge',
+        top: 'small',
       }}
       responsive
+      pad="medium"
       width="medium"
     >
       <Form onSubmit={updateJob}>

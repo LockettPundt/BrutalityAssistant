@@ -59,6 +59,7 @@ const UserRegister = ({ setUserEmail, setUserToken }) => {
         horizontal: 'auto',
         top: 'xlarge',
       }}
+      pad="medium"
       responsive
       width="medium"
     >
