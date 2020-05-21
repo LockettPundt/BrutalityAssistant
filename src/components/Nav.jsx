@@ -18,17 +18,19 @@ const Navbar = () => {
   useEffect(() => {
     console.log('hi');
     setUserToken(!!localStorage.getItem('token'));
-  });
+  }, []);
 
   return (
     <Nav
       direction="row"
       align="center"
+
     >
       <Text
         margin={{
           left: 'small',
         }}
+        color="pink"
       >
         Brutality Assistant
       </Text>
@@ -40,6 +42,7 @@ const Navbar = () => {
       {userToken
         ? (
           <Anchor
+
             icon={<Logout />}
             onClick={handleLogOut}
           />
