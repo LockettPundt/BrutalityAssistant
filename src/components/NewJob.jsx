@@ -56,7 +56,7 @@ const NewJob = () => {
       direction="column"
       margin={{
         horizontal: 'auto',
-        top: 'xlarge',
+        top: 'small',
       }}
       responsive
       align="center"
