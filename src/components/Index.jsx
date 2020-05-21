@@ -41,9 +41,10 @@ const Index = ({ userEmail, userToken }) => {
     <Box
       margin={{
         horizontal: 'auto',
-        top: 'xlarge',
+        top: 'small',
       }}
       responsive
+      pad="medium"
       width="medium"
       line-height="medium"
     >
