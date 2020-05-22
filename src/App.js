@@ -31,11 +31,11 @@ function App() {
           height="large"
         >
           <Route exact path="/" component={() => <Index userEmail={userEmail} userToken={userToken} />} />
-          <Route exact path="/register" component={() => <UserRegister setUserEmail={setUserEmail} setUserToken={setUserToken} />} />
-          <Route exact path="/myjobs" component={() => <MyJobs />} />
-          <Route exact path="/updatejob/:id" component={() => <UpdateJob />} />
-          <Route exact path="/newjob" component={NewJob} />
-          <Route exact path="/login" component={() => <LogIn setUserEmail={setUserEmail} setUserToken={setUserToken} />} />
+          <Route path="/register" component={() => <UserRegister setUserEmail={setUserEmail} setUserToken={setUserToken} />} />
+          <Route path="/myjobs" component={() => <MyJobs />} />
+          <Route path="/updatejob/:id" component={() => <UpdateJob />} />
+          <Route path="/newjob" component={NewJob} />
+          <Route path="/login" component={() => <LogIn setUserEmail={setUserEmail} setUserToken={setUserToken} />} />
         </Box>
       </Router>
     </Grommet>
