@@ -1,3 +1,3 @@
-const API_URL = 'http://api.brutalityassistant.com/';
+const API_URL = 'https://api.brutalityassistant.com/';
 
 export default API_URL;
