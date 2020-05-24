@@ -26,10 +26,11 @@ const Navbar = () => {
       align="center"
     >
       <Text
+        color="#CCCCCC"
+        weight="900"
         margin={{
           left: 'small',
         }}
-        color="pink"
       >
         Brutality Assistant
       </Text>
