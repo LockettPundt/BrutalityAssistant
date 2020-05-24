@@ -28,7 +28,6 @@ function App() {
             size: 'cover',
             height: 'small',
           }}
-          height="large"
         >
           <Route exact path="/" component={() => <Index userEmail={userEmail} userToken={userToken} />} />
           <Route path="/register" component={() => <UserRegister setUserEmail={setUserEmail} setUserToken={setUserToken} />} />
