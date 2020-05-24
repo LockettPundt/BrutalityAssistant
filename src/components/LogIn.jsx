@@ -80,10 +80,18 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormField>
-        <Button
-          type="submit"
-          label="Log In"
-        />
+        <Box>
+          <Button
+            margin={{
+              vertical: 'medium',
+              horizontal: 'auto',
+            }}
+            type="submit"
+            label="Log In"
+          />
+
+        </Box>
+
       </Form>
     </Box>
   );
