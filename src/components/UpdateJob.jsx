@@ -103,18 +103,32 @@ const UpdateJob = () => {
           />
         </FormField>
         <Box
-          direction="row"
-
+          direction="column"
+          align="center"
+          width="85%"
+          margin={{
+            horizontal: 'auto',
+            top: 'medium',
+          }}
         >
-          <Button
-            type="submit"
-            label="Update"
-          />
-          <Button
-            type="button"
-            label="Remove"
-            onClick={removeJob}
-          />
+          <Box
+            direction="row"
+          >
+            <Button
+              margin="xsmall"
+              type="submit"
+              alignSelf="center"
+              label="Update"
+            />
+            <Button
+              margin="xsmall"
+              type="button"
+              label="Remove"
+              onClick={removeJob}
+            />
+
+          </Box>
+
 
         </Box>
 
