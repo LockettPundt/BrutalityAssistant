@@ -4,7 +4,17 @@ Keep track of the jobs you've applied for with this handy assistant.
 
 [brutalityassistant.com]('https://www.brutalityassistant.com')
 
-### to try it locally
+### Tools
+
+React
+Grommet
+MongoDB
+Express
+Nodejs
+JSON Web Tokens
+Validator
+
+### To install 
 
 
 clone this repo
