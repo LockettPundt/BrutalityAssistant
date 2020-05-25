@@ -64,12 +64,15 @@ const Index = ({ userEmail, userToken }) => {
             Hi.
           </h1>
         )}
-      <h2>
+      <Text
+        weight="500"
+        size="large"
+      >
         This a personal App to keep track of jobs I
         have applied for, but you can use it too.
-      </h2>
+      </Text>
       <Text
-        weight="300"
+        weight="100"
       >
         It was built using React, Grommet, JSON Web Tokens, MongoDB,
         Node.js and Express.
