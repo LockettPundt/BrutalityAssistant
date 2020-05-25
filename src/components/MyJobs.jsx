@@ -64,31 +64,35 @@ const MyJobs = () => {
       }}
     >
       <Text>
-        Company:
+        <strong>Company:</strong>
         {' '}
         {job.company}
       </Text>
       <Text>
-        Position:
+        <strong>Position:</strong>
         {' '}
         {job.position}
       </Text>
       <Text>
-        Date:
+        <strong>Date:</strong>
         {' '}
         {job.date}
       </Text>
       <Text>
-        Skills Needed:
+        <strong>Skills Needed:</strong>
         {' '}
         {job.skillsNeeded}
       </Text>
       <Text>
-        Interview Status:
+        <strong>Interview Status:</strong>
         {' '}
-        {job.interview ? 'Yes' : 'No'}
+        {job.interview}
       </Text>
       <Button
+        margin={{
+          top: 'small',
+          bottom: 'small',
+        }}
         color="rgb(29, 29, 29)"
         alignSelf="center"
         type="button"
