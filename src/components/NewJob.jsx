@@ -82,7 +82,7 @@ const NewJob = () => {
         <FormField>
           <Calendar
             size="small"
-          // alignSelf="center"
+            alignSelf="center"
             margin="small"
             required
             onSelect={(e) => setApplicationDate(e)}
