@@ -56,6 +56,8 @@ const MyJobs = () => {
       background="pink"
       pad="medium"
       round="xsmall"
+      overflow="visible"
+      responsive
       margin={{
         vertical: 'small',
         horizontal: 'small',
@@ -153,6 +155,7 @@ const MyJobs = () => {
         alignSelf="center"
         margin={{
           top: 'large',
+          bottom: 'medium',
         }}
       />
     </Box>

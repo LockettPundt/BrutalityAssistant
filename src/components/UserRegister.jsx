@@ -97,10 +97,18 @@ const UserRegister = ({ setUserEmail, setUserToken }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormField>
-        <Button
-          type="submit"
-          label="Register"
-        />
+        <Box>
+          <Button
+            margin={{
+              vertical: 'medium',
+              horizontal: 'auto',
+            }}
+            type="submit"
+            label="Register"
+          />
+
+        </Box>
+
       </Form>
     </Box>
   );

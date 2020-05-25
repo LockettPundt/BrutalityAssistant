@@ -1,7 +1,9 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { Box, Anchor, Button } from 'grommet';
+import {
+  Box, Anchor, Button, Text,
+} from 'grommet';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -47,6 +49,7 @@ const Index = ({ userEmail, userToken }) => {
       pad="medium"
       width="medium"
       line-height="medium"
+      // height="100vh"
     >
       {userName
         ? (
@@ -61,14 +64,19 @@ const Index = ({ userEmail, userToken }) => {
             Hi.
           </h1>
         )}
-      <h2>
+      <Text
+        weight="500"
+        size="large"
+      >
         This a personal App to keep track of jobs I
         have applied for, but you can use it too.
-      </h2>
-      <h3>
+      </Text>
+      <Text
+        weight="100"
+      >
         It was built using React, Grommet, JSON Web Tokens, MongoDB,
         Node.js and Express.
-      </h3>
+      </Text>
       <Box
         margin="auto"
         direction="row"
