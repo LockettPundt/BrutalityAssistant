@@ -16,7 +16,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    console.log('hi');
     setUserToken(!!localStorage.getItem('token'));
   });
 
@@ -26,7 +25,7 @@ const Navbar = () => {
       align="center"
     >
       <Text
-        color="#CCCCCC"
+        color="white"
         weight="900"
         margin={{
           left: 'small',
