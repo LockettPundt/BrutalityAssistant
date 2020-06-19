@@ -37,7 +37,6 @@ const MyJobs = () => {
     };
     const auth = async () => {
       const response = await userAuth();
-      // console.log('response in my jobs', response);
       if (response) getJobs(response.data.authorizedData.UserInfo.email);
       else history.push('/');
     };
@@ -45,7 +44,6 @@ const MyJobs = () => {
   }, [history]);
 
   useEffect(() => {
-    // console.log(windowHeight, windowWidth);
     resizeWindow();
     window.addEventListener('resize', resizeWindow);
     return () => window.removeEventListener('resize', resizeWindow);
@@ -105,9 +103,10 @@ const MyJobs = () => {
   return (
     <Box
       margin={{
-        horizontal: 'auto',
+        horizontal: 'large',
         top: 'small',
       }}
+      pad="small"
       alignSelf="center"
       responsive
     >
@@ -123,19 +122,19 @@ const MyJobs = () => {
               },
               {
                 property: 'position',
-                header: <Text>Position</Text>,
+                header: <Text flex="grow">Position</Text>,
               },
               {
                 property: 'date',
-                header: <Text>Date Applied</Text>,
+                header: <Text flex="grow">Date Applied</Text>,
               },
               {
                 property: 'skillsNeeded',
-                header: <Text>Skills Needed</Text>,
+                header: <Text flex="grow">Skills Needed</Text>,
               },
               {
                 property: 'interview',
-                header: <Text>Interview</Text>,
+                header: <Text flex="grow">Interview</Text>,
               },
               {
                 property: 'update',
