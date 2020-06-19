@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import userAuth from '../utils/userAuth';
 
-const Index = ({ userEmail, userToken }) => {
+const Index = ({ userEmail, userToken, setUserToken }) => {
   const [userName, setUserName] = useState(false);
   const [userAuthStatus, setUserAuthStatus] = useState(false);
   const history = useHistory();
@@ -34,6 +34,7 @@ const Index = ({ userEmail, userToken }) => {
     setUserAuthStatus(false);
     localStorage.clear();
     history.push('/');
+    setUserToken(null);
   };
 
 
@@ -64,7 +65,7 @@ const Index = ({ userEmail, userToken }) => {
         )}
       <Paragraph>
         <Text
-          weight="500"
+          weight="bold"
           size="large"
         >
           This a personal App to keep track of jobs I
@@ -73,7 +74,7 @@ const Index = ({ userEmail, userToken }) => {
       </Paragraph>
       <Paragraph>
         <Text
-          weight="100"
+          weight="normal"
         >
           It was built using React, Grommet, JSON Web Tokens, MongoDB,
           Node.js and Express.
@@ -121,6 +122,7 @@ const Index = ({ userEmail, userToken }) => {
 Index.propTypes = {
   userEmail: PropTypes.string,
   userToken: PropTypes.string,
+  setUserToken: PropTypes.func,
 };
 
 export default Index;
