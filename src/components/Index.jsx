@@ -2,41 +2,36 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Anchor, Button, Text, Paragraph,
+  Box, Button, Text, Paragraph,
 } from 'grommet';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import userAuth from '../utils/userAuth';
 
-const Index = ({ userEmail, userToken, setUserToken }) => {
+const Index = ({ token, setUserToken }) => {
   const [userName, setUserName] = useState(false);
-  const [userAuthStatus, setUserAuthStatus] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
     const getUser = async () => {
       const response = await userAuth();
-
       if (response) {
         const { firstName, lastName } = response.data.authorizedData.UserInfo;
         setUserName(`${firstName.slice(0, 1).toUpperCase()}${firstName.slice(1)}`);
-        setUserAuthStatus(true);
         history.push('/');
         return true;
       }
       return false;
     };
     getUser();
-  }, [userEmail, userToken, history]);
+  }, [history]);
 
   const handleLogOut = () => {
-    setUserName('');
-    setUserAuthStatus(false);
+    setUserName(false);
     localStorage.clear();
+    setUserToken('');
     history.push('/');
-    setUserToken(null);
   };
-
 
   return (
     <Box
@@ -85,7 +80,7 @@ const Index = ({ userEmail, userToken, setUserToken }) => {
         margin="auto"
         direction="row"
       >
-        {userAuthStatus
+        {token
           ? (
             <>
               <Button
@@ -120,8 +115,7 @@ const Index = ({ userEmail, userToken, setUserToken }) => {
 };
 
 Index.propTypes = {
-  userEmail: PropTypes.string,
-  userToken: PropTypes.string,
+  token: PropTypes.string,
   setUserToken: PropTypes.func,
 };
 

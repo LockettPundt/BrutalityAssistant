@@ -1,23 +1,18 @@
 /* eslint-disable react/require-default-props */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Anchor, Nav, Text } from 'grommet';
 import { Home, Logout } from 'grommet-icons';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-
-const Navbar = ({ token }) => {
-  const [userToken, setUserToken] = useState(token);
+const Navbar = ({ token, setUserToken }) => {
   const history = useHistory();
 
-
   const handleLogOut = () => {
-    setUserToken(false);
+    setUserToken('');
     localStorage.clear();
     history.push('/');
   };
-
-  useEffect(() => () => setUserToken(!!localStorage.getItem('token')), [token]);
 
   return (
     <Nav
@@ -37,7 +32,7 @@ const Navbar = ({ token }) => {
         icon={<Home />}
         href="/"
       />
-      {userToken
+      {token
         ? (
           <Anchor
             icon={<Logout />}
@@ -51,6 +46,7 @@ const Navbar = ({ token }) => {
 
 Navbar.propTypes = {
   token: PropTypes.string,
+  setUserToken: PropTypes.func,
 };
 
 

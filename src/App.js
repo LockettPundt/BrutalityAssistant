@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import {
@@ -14,22 +15,22 @@ import Navbar from './components/Nav';
 import brutalityTheme from './themes/brutalitytheme';
 
 function App() {
-  const [userEmail, setUserEmail] = useState(localStorage.getItem('userEmail') || null);
-  const [userToken, setUserToken] = useState(localStorage.getItem('token') || null);
+  const [userEmail, setUserEmail] = useState(localStorage.getItem('userEmail') || '');
+  const [userToken, setUserToken] = useState(localStorage.getItem('token') || '');
 
   return (
     <Grommet
       theme={brutalityTheme}
     >
       <Router>
-        <Navbar token={userToken} />
+        <Navbar token={userToken} setUserToken={setUserToken} />
         <Box
           background={{
             size: 'cover',
             height: 'small',
           }}
         >
-          <Route exact path="/" component={() => <Index userEmail={userEmail} userToken={userToken} setUserToken={setUserToken} />} />
+          <Route exact path="/" component={() => <Index token={userToken} setUserToken={setUserToken} />} />
           <Route path="/register" component={() => <UserRegister setUserEmail={setUserEmail} setUserToken={setUserToken} />} />
           <Route path="/myjobs" component={() => <MyJobs />} />
           <Route path="/updatejob/:id" component={() => <UpdateJob />} />
