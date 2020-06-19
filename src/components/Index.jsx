@@ -2,12 +2,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Anchor, Button, Text,
+  Box, Anchor, Button, Text, Paragraph,
 } from 'grommet';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import API_URL from '../utils/appUtils';
 import userAuth from '../utils/userAuth';
 
 const Index = ({ userEmail, userToken }) => {
@@ -45,11 +43,11 @@ const Index = ({ userEmail, userToken }) => {
         horizontal: 'auto',
         top: 'small',
       }}
+
       responsive
       pad="medium"
       width="medium"
       line-height="medium"
-      // height="100vh"
     >
       {userName
         ? (
@@ -64,19 +62,24 @@ const Index = ({ userEmail, userToken }) => {
             Hi.
           </h1>
         )}
-      <Text
-        weight="500"
-        size="large"
-      >
-        This a personal App to keep track of jobs I
-        have applied for, but you can use it too.
-      </Text>
-      <Text
-        weight="100"
-      >
-        It was built using React, Grommet, JSON Web Tokens, MongoDB,
-        Node.js and Express.
-      </Text>
+      <Paragraph>
+        <Text
+          weight="500"
+          size="large"
+        >
+          This a personal App to keep track of jobs I
+          have applied for, but you can use it too.
+        </Text>
+      </Paragraph>
+      <Paragraph>
+        <Text
+          weight="100"
+        >
+          It was built using React, Grommet, JSON Web Tokens, MongoDB,
+          Node.js and Express.
+        </Text>
+      </Paragraph>
+
       <Box
         margin="auto"
         direction="row"
