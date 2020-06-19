@@ -41,10 +41,6 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
       localStorage.setItem('userEmail', user.data.email);
       setUserEmail(user.data.email);
       setUserToken(user.data.token);
-      setEmail('');
-      setPassword('');
-      setPasswordPlaceholder('Password');
-      setEmailPlaceholder('Email');
       history.push('/');
     }
   };
