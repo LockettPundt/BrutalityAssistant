@@ -1,9 +1,11 @@
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
 import {
   Form, FormField, Box, Button, TextInput,
 } from 'grommet';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import API_URL from '../utils/appUtils';
 
 const LogIn = ({ setUserEmail, setUserToken }) => {
@@ -92,6 +94,11 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
       </Form>
     </Box>
   );
+};
+
+LogIn.propTypes = {
+  setUserEmail: PropTypes.func,
+  setUserToken: PropTypes.func,
 };
 
 export default LogIn;
