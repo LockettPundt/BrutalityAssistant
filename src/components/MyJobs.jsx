@@ -122,19 +122,19 @@ const MyJobs = () => {
               },
               {
                 property: 'position',
-                header: <Text flex="grow">Position</Text>,
+                header: <Text>Position</Text>,
               },
               {
                 property: 'date',
-                header: <Text flex="grow">Date Applied</Text>,
+                header: <Text>Date Applied</Text>,
               },
               {
                 property: 'skillsNeeded',
-                header: <Text flex="grow">Skills Needed</Text>,
+                header: <Text>Skills Needed</Text>,
               },
               {
                 property: 'interview',
-                header: <Text flex="grow">Interview</Text>,
+                header: <Text>Interview</Text>,
               },
               {
                 property: 'update',
