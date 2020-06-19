@@ -48,7 +48,6 @@ const UpdateJob = () => {
       const authResponse = await userAuth();
       if (authResponse) {
         const response = await axios.get(`${API_URL}jobs/${jobId}`);
-        // console.log(response);
         setCompany(response.data[0].company);
         setInterview(response.data[0].interview ? 'True' : 'False');
         setSkillsNeeded(response.data[0].skillsNeeded.join(', '));

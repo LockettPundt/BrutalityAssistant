@@ -22,14 +22,14 @@ function App() {
       theme={brutalityTheme}
     >
       <Router>
-        <Navbar />
+        <Navbar token={userToken} />
         <Box
           background={{
             size: 'cover',
             height: 'small',
           }}
         >
-          <Route exact path="/" component={() => <Index userEmail={userEmail} userToken={userToken} />} />
+          <Route exact path="/" component={() => <Index userEmail={userEmail} userToken={userToken} setUserToken={setUserToken} />} />
           <Route path="/register" component={() => <UserRegister setUserEmail={setUserEmail} setUserToken={setUserToken} />} />
           <Route path="/myjobs" component={() => <MyJobs />} />
           <Route path="/updatejob/:id" component={() => <UpdateJob />} />

@@ -1,9 +1,11 @@
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
 import {
   Form, FormField, Box, Button, TextInput,
 } from 'grommet';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import API_URL from '../utils/appUtils';
 
 const LogIn = ({ setUserEmail, setUserToken }) => {
@@ -23,8 +25,6 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
     const url = `${API_URL}users/login`;
     const user = await axios.put(url, userInfo);
 
-    // console.log('this is the user.', user);
-
     if (user.data.error) {
       if (user.data.error.includes('email')) {
         setEmail('');
@@ -36,7 +36,6 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
       }
     }
     if (user.data.token) {
-      // console.log('Log in Success.');
       localStorage.clear();
       localStorage.setItem('token', user.data.token);
       localStorage.setItem('userEmail', user.data.email);
@@ -95,6 +94,11 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
       </Form>
     </Box>
   );
+};
+
+LogIn.propTypes = {
+  setUserEmail: PropTypes.func,
+  setUserToken: PropTypes.func,
 };
 
 export default LogIn;

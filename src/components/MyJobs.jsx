@@ -1,5 +1,7 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-unused-vars */
+
+
 import React, { useState, useEffect } from 'react';
 import {
   Box, DataTable, Button, Text,
@@ -37,7 +39,6 @@ const MyJobs = () => {
     };
     const auth = async () => {
       const response = await userAuth();
-      // console.log('response in my jobs', response);
       if (response) getJobs(response.data.authorizedData.UserInfo.email);
       else history.push('/');
     };
@@ -45,7 +46,6 @@ const MyJobs = () => {
   }, [history]);
 
   useEffect(() => {
-    // console.log(windowHeight, windowWidth);
     resizeWindow();
     window.addEventListener('resize', resizeWindow);
     return () => window.removeEventListener('resize', resizeWindow);
@@ -105,9 +105,10 @@ const MyJobs = () => {
   return (
     <Box
       margin={{
-        horizontal: 'auto',
+        horizontal: 'large',
         top: 'small',
       }}
+      pad="small"
       alignSelf="center"
       responsive
     >

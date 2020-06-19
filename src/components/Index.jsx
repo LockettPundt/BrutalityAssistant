@@ -2,15 +2,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Anchor, Button, Text,
+  Box, Anchor, Button, Text, Paragraph,
 } from 'grommet';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import API_URL from '../utils/appUtils';
 import userAuth from '../utils/userAuth';
 
-const Index = ({ userEmail, userToken }) => {
+const Index = ({ userEmail, userToken, setUserToken }) => {
   const [userName, setUserName] = useState(false);
   const [userAuthStatus, setUserAuthStatus] = useState(false);
   const history = useHistory();
@@ -36,6 +34,7 @@ const Index = ({ userEmail, userToken }) => {
     setUserAuthStatus(false);
     localStorage.clear();
     history.push('/');
+    setUserToken(null);
   };
 
 
@@ -45,11 +44,11 @@ const Index = ({ userEmail, userToken }) => {
         horizontal: 'auto',
         top: 'small',
       }}
+
       responsive
       pad="medium"
       width="medium"
       line-height="medium"
-      // height="100vh"
     >
       {userName
         ? (
@@ -64,19 +63,24 @@ const Index = ({ userEmail, userToken }) => {
             Hi.
           </h1>
         )}
-      <Text
-        weight="500"
-        size="large"
-      >
-        This a personal App to keep track of jobs I
-        have applied for, but you can use it too.
-      </Text>
-      <Text
-        weight="100"
-      >
-        It was built using React, Grommet, JSON Web Tokens, MongoDB,
-        Node.js and Express.
-      </Text>
+      <Paragraph>
+        <Text
+          weight="bold"
+          size="large"
+        >
+          This a personal App to keep track of jobs I
+          have applied for, but you can use it too.
+        </Text>
+      </Paragraph>
+      <Paragraph>
+        <Text
+          weight="normal"
+        >
+          It was built using React, Grommet, JSON Web Tokens, MongoDB,
+          Node.js and Express.
+        </Text>
+      </Paragraph>
+
       <Box
         margin="auto"
         direction="row"
@@ -118,6 +122,7 @@ const Index = ({ userEmail, userToken }) => {
 Index.propTypes = {
   userEmail: PropTypes.string,
   userToken: PropTypes.string,
+  setUserToken: PropTypes.func,
 };
 
 export default Index;

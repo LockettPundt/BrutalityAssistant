@@ -1,11 +1,13 @@
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react';
 import { Anchor, Nav, Text } from 'grommet';
 import { Home, Logout } from 'grommet-icons';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
-const Navbar = () => {
-  const [userToken, setUserToken] = useState(!!localStorage.getItem('token'));
+const Navbar = ({ token }) => {
+  const [userToken, setUserToken] = useState(token);
   const history = useHistory();
 
 
@@ -15,10 +17,7 @@ const Navbar = () => {
     history.push('/');
   };
 
-  useEffect(() => {
-    console.log('hi');
-    setUserToken(!!localStorage.getItem('token'));
-  });
+  useEffect(() => () => setUserToken(!!localStorage.getItem('token')), [token]);
 
   return (
     <Nav
@@ -26,8 +25,8 @@ const Navbar = () => {
       align="center"
     >
       <Text
-        color="#CCCCCC"
-        weight="900"
+        color="white"
+        weight="bold"
         margin={{
           left: 'small',
         }}
@@ -48,6 +47,10 @@ const Navbar = () => {
         : null}
     </Nav>
   );
+};
+
+Navbar.propTypes = {
+  token: PropTypes.string,
 };
 
 
