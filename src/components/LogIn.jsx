@@ -23,8 +23,6 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
     const url = `${API_URL}users/login`;
     const user = await axios.put(url, userInfo);
 
-    // console.log('this is the user.', user);
-
     if (user.data.error) {
       if (user.data.error.includes('email')) {
         setEmail('');
@@ -36,7 +34,6 @@ const LogIn = ({ setUserEmail, setUserToken }) => {
       }
     }
     if (user.data.token) {
-      // console.log('Log in Success.');
       localStorage.clear();
       localStorage.setItem('token', user.data.token);
       localStorage.setItem('userEmail', user.data.email);
