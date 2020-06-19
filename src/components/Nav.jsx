@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
 import {
-  Anchor, Nav, Text, Box, Image,
+  Anchor, Nav, Box, Image,
 } from 'grommet';
 import { Home, Logout } from 'grommet-icons';
 import { useHistory } from 'react-router-dom';
