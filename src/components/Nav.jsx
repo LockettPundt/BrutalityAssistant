@@ -21,20 +21,17 @@ const Navbar = ({ token, setUserToken }) => {
     <Nav
       pad="small"
       direction="row"
-      align="center"
+      margin={{
+        left: 'small',
+      }}
     >
       <Image
-        margin={{
-          left: 'small',
-        }}
-        height="55px"
+
+        height="45px"
         src={logo}
       />
       <Box
         direction="row"
-        margin={{
-          top: 'small',
-        }}
       >
         <Anchor
           margin={{
